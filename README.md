@@ -1,5 +1,15 @@
 # agent-operation-ledger
 
+Keep two agent workers from claiming the same operation, without retrying an uncertain result.
+
+## Try the safe demo
+
+```sh
+python3 demo-race.py
+```
+
+Sixteen local synthetic workers race for one operation key: one wins and fifteen are blocked. This demonstrates local reservation contention, not exactly-once remote delivery. The ledger never executes the action.
+
 Two agent workers should not both send the same action. An uncertain outcome should not silently become permission to try again.
 
 This local SQLite ledger lets one controller reserve an operation key, record success or uncertainty, and block subsequent claims. Python 3.10+, standard library only. MIT. It never executes the operation.
